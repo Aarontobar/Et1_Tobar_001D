@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #formulario="ngForm" (ngSubmit) ="onSubmit()">
+    <ion-list>
+
+      <ion-list-header>
+        <ion-label>
+          Crear usuario
+        </ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input type="text" required
+                   name="nombre" [(ngModel)]= "usuario.nombre"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input type="text" required
+                   name="apellido" [(ngModel)]= "usuario.apellido"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" required
+                   name="email" [(ngModel)]= "usuario.email"
+                   pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Pais</ion-label>
+        <ion-select interface="popover">
+          <ion-select-option value="argentina">Argentina</ion-select-option>
+          <ion-select-option value="chile">Chile</ion-select-option>
+          <ion-select-option value="españa">España</ion-select-option>
+          <ion-select-option value="canada">Canada</ion-select-option>
+          <ion-select-option value="eeuu">EE.UU</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" required
+                   name="password" [(ngModel)]= "usuario.password"></ion-input>
+      </ion-item>
+
+      <ion-button [disabled] ="formulario.invalid"
+                  type="submit" expand="block" routerLink="/tabs/inicio">
+                  submit
+                </ion-button>
+    </ion-list>
+  </form>
+</ion-content>
