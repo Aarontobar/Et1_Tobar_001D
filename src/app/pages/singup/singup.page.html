@@ -1,0 +1,49 @@
+<ion-header no-border>
+  <div class="singup-header ion-padding">
+    <img class="logo-img" src="/assets/logo.png">
+  </div>
+</ion-header>
+
+<ion-content transparent>
+  <div class="center" transparent>
+    <div heading-column-lr transparent>
+      <h1 big-heading>Registrate!</h1>
+    </div>
+    <ion-label>
+      ingrese la siguiente informacion
+    </ion-label>
+
+    <form #formulario="ngForm" (ngSubmit)="addDatos()" >
+
+      <ion-item transparent>
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-input [(ngModel)]="newDato.usuario" placeholder="Usuario" type="text" required name="usuario"></ion-input>
+      </ion-item>
+    
+      <ion-item transparent>
+        <ion-icon name="body-outline"></ion-icon>
+        <ion-input [(ngModel)]="newDato.nombre" placeholder="nombre" type="text" required name="nombre"></ion-input>
+      </ion-item>
+
+      <ion-item transparent>
+        <ion-icon name="body-outline"></ion-icon>
+        <ion-input [(ngModel)]="newDato.apellido" placeholder="apellido" type="text" required name="apellido"></ion-input>
+      </ion-item>
+    
+      <ion-item transparent>
+        <ion-icon name="mail-open-outline"></ion-icon>
+        <ion-input [(ngModel)]="newDato.correo" placeholder="correo" type="email" required name="correo" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"></ion-input>
+      </ion-item>
+
+      <ion-item transparent>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <ion-input [(ngModel)]="newDato.contrasenna" placeholder="contraseña" type="password" name="contrasenna"></ion-input>
+      </ion-item>
+
+      <div linespace></div>
+
+      <ion-button [disabled]="formulario.invalid" color="dark" class="ion-button-class" fill="solid" size="large" expand="block" type="submit">registrarse</ion-button>
+    </form>
+    <ion-label class="ion-text-center">ya tienes cuenta? <span class="link-button" routerLink="/login">login</span></ion-label>
+  </div>
+</ion-content>

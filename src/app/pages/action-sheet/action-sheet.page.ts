@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { ServicesdatosService, Datos } from 'src/app/services/servicesdatos.service';
+import { Platform, ToastController, IonList} from '@ionic/angular';
+import {Router} from '@angular/router';
+import {AuthenticationService} from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-action-sheet',
@@ -8,22 +11,84 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ActionSheetPage implements OnInit {
 
-  usuario = {
-    nombre:'',
-    apellido:'',
-    email:'',
-    password:''
+  datos: Datos[] = [];
+  usuario: Datos = <Datos>{};
+  dato: Datos = <Datos>{};
+
+  constructor(private storageService: ServicesdatosService,  private plt: Platform,  private toastController: ToastController,  private router: Router, public authenticationService: AuthenticationService) {
+    this.plt.ready().then(()=>{
+      this.loadDatos();
+    });
   }
 
-  constructor() {}
-
   ngOnInit() {
+  }
+
+  
+
+  loadDatos(){
+    this.storageService.getDatos().then(datos=>{
+      this.datos=datos;
+      console.log(this.datos);
+      this.loadUsuario();
+    });
+  }
+  
+  loadUsuario(){
+    console.log('cargado');
+    console.log(this.datos);
+    for(let i of this.datos){
+      if(i.active === 1){
+        this.usuario= i;
+        this.dato= i;
+        console.log(i);
+      }
+    }
+  }
+
+  updateDatos(){
+    if(this.dato.usuario === this.usuario.usuario){
+      this.storageService.updateDatos(this.usuario).then(item=>{
+        this.showToast('Elemento actualizado!')
+        this.loadDatos();
+      });
+    }
+    else{
+      for(let i of this.datos){
+        if(i.usuario === this.usuario.usuario){
+          this.showToast('nombre de usuario ocupado')
+          return null;
+        }
+        else{
+          this.storageService.updateDatos(this.usuario).then(item=>{
+          this.showToast('Elemento actualizado!')
+          localStorage.setItem('USER_DATA', this.usuario.usuario);
+          this.loadDatos();
+          });
+        }
+      }
+    }
     
   }
 
-  onSubmit(){
-    console.log('submit');
-    console.log(this.usuario);
+  deleteDatos(){
+    this.storageService.deleteDatos(this.usuario.id).then(item=>{
+      this.showToast('Elemento eliminado');
+      localStorage.removeItem('USER_DATA');
+      this.router.navigate(["/login"]);
+    });
   }
 
+  
+  async showToast(msg){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  logout(){
+    this.authenticationService.logout();
+  }
 }

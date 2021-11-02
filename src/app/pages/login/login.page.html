@@ -1,0 +1,32 @@
+<ion-header no-border>
+  <div class="login-header ion-padding">
+    <img class="logo-img" src="/assets/logo.png">
+  </div>
+</ion-header>
+
+<ion-content transparent>
+  <div class="center" transparent>
+    <div heading-column-lr transparent>
+      <h1 big-heading>Hola desconocido!</h1>
+    </div>
+    <ion-label>
+      inicia sesion o registrate para empezar
+    </ion-label>
+
+    <form #formulario="ngForm" (ngSubmit)="ingresar()">
+
+    <ion-item transparent>
+      <ion-icon name="person-outline"></ion-icon>
+      <ion-input [(ngModel)]="cuenta.usuario" placeholder="Usuario" type="text" name="usuario"></ion-input>
+    </ion-item>
+    <ion-item transparent>
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      <ion-input [(ngModel)]="cuenta.password" placeholder="Password" type="password" name="password"></ion-input>
+    </ion-item>
+    <div linespace></div>
+    <ion-button color="dark" class="ion-button-class" fill="solid" size="large" expand="block" type="submit">Login</ion-button>
+    </form>
+
+    <ion-label class="ion-text-center">no tienes cuenta? <span class="link-button" routerLink="/singup">Registrarse</span></ion-label>
+  </div>
+</ion-content>

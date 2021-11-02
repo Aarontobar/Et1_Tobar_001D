@@ -17,6 +17,10 @@ const routes: Routes = [
             loadChildren: () => import('./../../pages/alert/alert.module').then( m => m.AlertPageModule)
           },
           {
+            path: 'juegos',
+            loadChildren: () => import('./../../pages/juegos/juegos.module').then( m => m.JuegosPageModule)
+          },
+          {
             path: 'registrate',
             loadChildren: () => import('./../../pages/action-sheet/action-sheet.module').then( m => m.ActionSheetPageModule)
           }
