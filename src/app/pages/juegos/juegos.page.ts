@@ -20,7 +20,7 @@ export class JuegosPage implements OnInit {
   }
 
   ngOnInit() {
-    this.juegosservice.getTopHeadLines('https://api.rawg.io/api/games?key=5978e99b33e341c7bfb90c06f873b38b').subscribe(resp=>{
+    this.juegosservice.getTopHeadLines('https://api.rawg.io/api/games?key=7098d29b85a745488060b24f931a3b00').subscribe(resp=>{
       console.log('juegos', resp);
       this.juegos.push(...resp.results);
       this.next=resp.next;
